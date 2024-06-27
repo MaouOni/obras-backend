@@ -1,4 +1,4 @@
-const { Frente } = require('../models');
+const { Frente, Catalogo, Proyecto, Empresa } = require('../models');
 
 exports.getAllFrentes = async (req, res) => {
     try {
@@ -11,7 +11,13 @@ exports.getAllFrentes = async (req, res) => {
 
 exports.getFrenteById = async (req, res) => {
     try {
-        const frente = await Frente.findByPk(req.params.id);
+        const frente = await Frente.findByPk(req.params.id, {
+            include: [
+                { model: Catalogo, as: 'catalogos_relacionados' },
+                { model: Proyecto, as: 'proyecto' },
+                { model: Empresa, as: 'empresa' }
+            ]
+        });
         if (frente) {
             res.json(frente);
         } else {

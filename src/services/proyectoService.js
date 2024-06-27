@@ -1,11 +1,16 @@
-const { Proyecto } = require('../models');
+const { Proyecto, Frente } = require('../models');
 
 exports.getAllProyectos = async () => {
     return await Proyecto.findAll();
 };
 
 exports.getProyectoById = async (id) => {
-    return await Proyecto.findByPk(id);
+    return await Proyecto.findByPk(id, {
+        include: [{
+            model: Frente,
+            as: 'frentes'
+        }]
+    });
 };
 
 exports.createProyecto = async (proyectoData) => {
@@ -17,7 +22,12 @@ exports.updateProyecto = async (id, proyectoData) => {
         where: { id }
     });
     if (updated) {
-        return await Proyecto.findByPk(id);
+        return await Proyecto.findByPk(id, {
+            include: [{
+                model: Frente,
+                as: 'frentes'
+            }]
+        });
     }
     return null;
 };

@@ -1,28 +1,37 @@
-const db = require('../models/db');
+const db = require('../models');
+const Empresa = db.Empresa;
 
 class EmpresaService {
     async getAll() {
-        const [rows] = await db.query('SELECT * FROM empresa');
-        return rows;
+        return await Empresa.findAll();
     }
 
     async getById(id) {
-        const [rows] = await db.query('SELECT * FROM empresa WHERE id = ?', [id]);
-        return rows[0];
+        return await Empresa.findByPk(id);
     }
 
-    async create(empresa) {
-        const { nombre, razon_social, rfc, numero_iva, cmic } = empresa;
-        await db.query('INSERT INTO empresa (nombre, razon_social, rfc, numero_iva, cmic) VALUES (?, ?, ?, ?, ?)', [nombre, razon_social, rfc, numero_iva, cmic]);
+    async create(data) {
+        return await Empresa.create(data);
     }
 
-    async update(id, empresa) {
-        const { nombre, razon_social, rfc, numero_iva, cmic } = empresa;
-        await db.query('UPDATE empresa SET nombre = ?, razon_social = ?, rfc = ?, numero_iva = ?, cmic = ? WHERE id = ?', [nombre, razon_social, rfc, numero_iva, cmic, id]);
+    async update(id, data) {
+        const [updated] = await Empresa.update(data, {
+            where: { id: id }
+        });
+        if (updated) {
+            return await Empresa.findByPk(id);
+        }
+        throw new Error('Empresa not found');
     }
 
     async delete(id) {
-        await db.query('DELETE FROM empresa WHERE id = ?', [id]);
+        const deleted = await Empresa.destroy({
+            where: { id: id }
+        });
+        if (deleted) {
+            return;
+        }
+        throw new Error('Empresa not found');
     }
 }
 
