@@ -10,7 +10,7 @@ const catalogoRoutes = require('./routes/catalogoRoutes');
 const estimacionRoutes = require('./routes/estimacionRoutes');
 
 const app = express();
-const port = process.env.PORT || 10000;  // Use Render's default port
+const port = process.env.PORT;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -27,7 +27,7 @@ db.sequelize.sync().then(() => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on port ${port}`);
 });
 
 app.get('/', (req, res) => {
