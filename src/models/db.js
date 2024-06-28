@@ -10,8 +10,8 @@ const sequelize = new Sequelize(
         dialect: 'postgres',
         dialectOptions: {
             ssl: {
-                require: true, // This will use SSL
-                rejectUnauthorized: false // This avoids an error with self-signed certificates
+                require: true,
+                rejectUnauthorized: false
             }
         }
     }
@@ -21,19 +21,5 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-
-// Define your models here
-// db.Empresa = require('./empresa.model')(sequelize, DataTypes);
-// db.Proyecto = require('./proyecto.model')(sequelize, DataTypes);
-// db.Frente = require('./frente.model')(sequelize, DataTypes);
-// db.Catalogo = require('./catalogo.model')(sequelize, DataTypes);
-// db.Estimacion = require('./estimacion.model')(sequelize, DataTypes);
-
-// Uncomment and define your associations if needed
-// Object.keys(db).forEach(modelName => {
-//   if (db[modelName].associate) {
-//     db[modelName].associate(db);
-//   }
-// });
 
 module.exports = db;
