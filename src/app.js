@@ -10,7 +10,7 @@ const catalogoRoutes = require('./routes/catalogoRoutes');
 const estimacionRoutes = require('./routes/estimacionRoutes');
 
 const app = express();
-const port = process.env.PORT || '10000';
+const port = process.env.PORT || 10000;  // Use Render's default port
 
 app.use(cors());
 app.use(bodyParser.json());
