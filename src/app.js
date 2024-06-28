@@ -25,12 +25,8 @@ db.sequelize.sync().then(() => {
   console.error('Unable to connect to the database:', err);
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the Obras Backend API');
-});
-
-module.exports = app;
+module.exports = server;
