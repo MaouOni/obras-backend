@@ -1,13 +1,16 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize(
-    process.env.PG_DATABASE,
-    process.env.PG_USER,
-    process.env.PG_PASSWORD,
+    process.env.DATABASE_URL, // Use DATABASE_URL environment variable
     {
-        host: process.env.PG_HOST,
-        port: process.env.PG_PORT,
         dialect: 'postgres',
+        protocol: 'postgres',
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false // Important to disable SSL rejection on Render
+            }
+        }
     }
 );
 
@@ -16,16 +19,6 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.Empresa = require('./empresa.model')(sequelize, DataTypes);
-db.Proyecto = require('./proyecto.model')(sequelize, DataTypes);
-db.Frente = require('./frente.model')(sequelize, DataTypes);
-db.Catalogo = require('./catalogo.model')(sequelize, DataTypes);
-db.Estimacion = require('./estimacion.model')(sequelize, DataTypes);
-
-Object.keys(db).forEach(modelName => {
-    if (db[modelName].associate) {
-        db[modelName].associate(db);
-    }
-});
+// Define your models here (similar to your existing setup)
 
 module.exports = db;
