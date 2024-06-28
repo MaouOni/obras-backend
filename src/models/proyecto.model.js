@@ -1,7 +1,5 @@
-// src/models/proyecto.model.js
-
 module.exports = (sequelize, DataTypes) => {
-    const Proyecto = sequelize.define('Proyecto', {
+    const Proyecto = sequelize.define('proyecto', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,

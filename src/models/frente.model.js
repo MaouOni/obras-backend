@@ -1,5 +1,3 @@
-// src/models/frente.model.js
-
 module.exports = (sequelize, DataTypes) => {
     const Frente = sequelize.define('Frente', {
         id: {
@@ -30,21 +28,21 @@ module.exports = (sequelize, DataTypes) => {
         proyecto_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'proyecto', // Adjust to match your PostgreSQL table name
+                model: 'proyectos',
                 key: 'id',
             },
         },
         empresa_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'empresa', // Adjust to match your PostgreSQL table name
+                model: 'empresas',
                 key: 'id',
             },
         },
         importe: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
-            defaultValue: 0,
+            defaultValue: 0, // Set a default value if needed
         },
     }, {
         tableName: 'frente',

@@ -26,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     }, {
-        tableName: 'empresa', // Specify the table name in PostgreSQL
-        timestamps: false, // Disable timestamps
+        tableName: 'empresa',
+        timestamps: false
     });
 
     return Empresa;

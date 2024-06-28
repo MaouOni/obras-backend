@@ -1,5 +1,3 @@
-// src/models/estimacion.model.js
-
 module.exports = (sequelize, DataTypes) => {
     const Estimacion = sequelize.define('estimacion', {
         id: {
@@ -50,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
         frente_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'frente',  // Make sure the table name matches your PostgreSQL setup
+                model: 'frente',
                 key: 'id',
             },
         },
