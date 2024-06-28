@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Frente = sequelize.define('Frente', {
+    const Frente = sequelize.define('frente', {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         importe: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
-            defaultValue: 0, // Set a default value if needed
+            defaultValue: 0,
         },
     }, {
         tableName: 'frente',

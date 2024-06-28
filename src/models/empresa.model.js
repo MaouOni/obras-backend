@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Empresa = sequelize.define('empresa', {
+    return sequelize.define('empresa', {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -29,6 +29,4 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'empresa',
         timestamps: false
     });
-
-    return Empresa;
 };

@@ -1,14 +1,18 @@
-// config/sequelize.js
+require('dotenv').config();
+const { Sequelize, DataTypes } = require('sequelize');
 
-const { Sequelize } = require('sequelize');
+// Ensure the port is a number
+const port = parseInt(process.env.PG_PORT, 10);
 
-const sequelize = new Sequelize({
-    dialect: 'postgres',  // Specify the dialect (e.g., 'postgres')
-    host: process.env.PG_HOST,  // Replace with your PostgreSQL host
-    port: process.env.PG_PORT,  // Replace with your PostgreSQL port
-    username: process.env.PG_USER,  // Replace with your PostgreSQL username
-    password: process.env.PG_PASSWORD,  // Replace with your PostgreSQL password
-    database: process.env.PG_DATABASE,  // Replace with your PostgreSQL database name
-});
+const sequelize = new Sequelize(
+    process.env.PG_DATABASE,
+    process.env.PG_USER,
+    process.env.PG_PASSWORD,
+    {
+        host: process.env.PG_HOST,
+        port: port,
+        dialect: 'postgres',
+    }
+);
 
-module.exports = sequelize;
+module.exports = { sequelize, DataTypes };
