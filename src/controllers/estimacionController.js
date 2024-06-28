@@ -1,4 +1,7 @@
-const { Estimacion, Frente, Empresa, Catalogo } = require('../models');
+const Estimacion = require('../models/estimacion.model');
+const Frente = require('../models/frente.model');
+const Empresa = require('../models/empresa.model');
+const Catalogo = require('../models/catalogo.model');
 
 exports.getAllEstimaciones = async (req, res) => {
     try {

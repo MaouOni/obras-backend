@@ -1,4 +1,4 @@
-const { Estimacion } = require('../models');
+const { Estimacion } = require('../models/db');
 
 exports.getAllEstimaciones = async () => {
     return await Estimacion.findAll();

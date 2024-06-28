@@ -1,4 +1,4 @@
-const { Catalogo, Frente } = require('../models');
+const { Catalogo, Frente } = require('../models/db');
 
 class CatalogoService {
     async getAll() {
