@@ -9,7 +9,6 @@ const catalogoRoutes = require('./routes/catalogoRoutes');
 const estimacionRoutes = require('./routes/estimacionRoutes');
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -25,8 +24,4 @@ db.sequelize.sync().then(() => {
   console.error('Unable to connect to the database:', err);
 });
 
-const server = app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
-
-module.exports = server;
+module.exports = app; // Export the app instance
