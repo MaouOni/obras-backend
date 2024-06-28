@@ -39,6 +39,11 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'id',
             },
         },
+        importe: {
+            type: DataTypes.DECIMAL(10, 2),
+            allowNull: false,
+            defaultValue: 0, // Set a default value if needed
+        },
     }, {
         tableName: 'frente',
         timestamps: false,

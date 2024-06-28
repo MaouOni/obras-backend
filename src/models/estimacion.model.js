@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         tableName: 'estimacion',
-        timestamps: false
+        timestamps: false,
     });
 
     Estimacion.associate = (models) => {

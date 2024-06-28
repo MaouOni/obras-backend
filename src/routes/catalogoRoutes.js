@@ -7,5 +7,6 @@ router.get('/:id', catalogoController.getById);
 router.post('/', catalogoController.create);
 router.put('/:id', catalogoController.update);
 router.delete('/:id', catalogoController.delete);
+router.get('/frente/:frenteId', catalogoController.getByFrenteId);
 
 module.exports = router;

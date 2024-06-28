@@ -1,28 +1,43 @@
-const db = require('../models/db');
+const { Catalogo, Frente } = require('../models');
 
 class CatalogoService {
     async getAll() {
-        const [rows] = await db.query('SELECT * FROM catalogo');
-        return rows;
+        return await Catalogo.findAll();
     }
 
     async getById(id) {
-        const [rows] = await db.query('SELECT * FROM catalogo WHERE id = ?', [id]);
-        return rows[0];
+        return await Catalogo.findByPk(id);
     }
 
     async create(catalogo) {
-        const { clave, nombre, descripcion, unidad, costo_unitario, cantidad, importe, frente_id } = catalogo;
-        await db.query('INSERT INTO catalogo (clave, nombre, descripcion, unidad, costo_unitario, cantidad, importe, frente_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [clave, nombre, descripcion, unidad, costo_unitario, cantidad, importe, frente_id]);
+        return await Catalogo.create(catalogo);
     }
 
     async update(id, catalogo) {
-        const { clave, nombre, descripcion, unidad, costo_unitario, cantidad, importe, frente_id } = catalogo;
-        await db.query('UPDATE catalogo SET clave = ?, nombre = ?, descripcion = ?, unidad = ?, costo_unitario = ?, cantidad = ?, importe = ?, frente_id = ? WHERE id = ?', [clave, nombre, descripcion, unidad, costo_unitario, cantidad, importe, frente_id, id]);
+        const [updated] = await Catalogo.update(catalogo, {
+            where: { id: id }
+        });
+        if (updated) {
+            return await Catalogo.findByPk(id);
+        }
+        return null;
     }
 
     async delete(id) {
-        await db.query('DELETE FROM catalogo WHERE id = ?', [id]);
+        const deleted = await Catalogo.destroy({
+            where: { id: id }
+        });
+        return deleted;
+    }
+
+    async getFrente(frenteId) {
+        return await Frente.findByPk(frenteId);
+    }
+
+    async getByFrenteId(frenteId) {
+        return await Catalogo.findAll({
+            where: { frente_id: frenteId }
+        });
     }
 }
 

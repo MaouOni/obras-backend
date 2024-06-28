@@ -1,4 +1,4 @@
-const { Estimacion } = require('../models');
+const { Estimacion, Frente, Empresa, Catalogo } = require('../models');
 
 exports.getAllEstimaciones = async (req, res) => {
     try {
@@ -11,7 +11,11 @@ exports.getAllEstimaciones = async (req, res) => {
 
 exports.getEstimacionById = async (req, res) => {
     try {
-        const estimacion = await Estimacion.findByPk(req.params.id);
+        const estimacion = await Estimacion.findByPk(req.params.id, {
+            include: [
+                { model: Frente, as: 'frente', include: [{ model: Empresa, as: 'empresa' }] }
+            ]
+        });
         if (estimacion) {
             res.json(estimacion);
         } else {
@@ -57,6 +61,33 @@ exports.deleteEstimacion = async (req, res) => {
         } else {
             res.status(404).json({ error: 'Estimacion not found' });
         }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.calculateEstimacion = async (req, res) => {
+    try {
+        const frenteId = req.params.frenteId;
+        const catalogos = await Catalogo.findAll({ where: { frente_id: frenteId } });
+
+        let importeEstimadoActual = 0;
+        catalogos.forEach(catalogo => {
+            importeEstimadoActual += catalogo.costo_unitario * catalogo.cantidad;
+        });
+
+        const estimaciones = await Estimacion.findAll({ where: { frente_id: frenteId } });
+
+        const importeEstimadoAcumAnterior = estimaciones.length > 0 ? estimaciones[estimaciones.length - 1].importe_estimado_acum_actual : 0;
+
+        const frente = await Frente.findByPk(frenteId);
+
+        res.json({
+            importe_estimado_actual: importeEstimadoActual,
+            importe_estimado_acum_anterior: importeEstimadoAcumAnterior,
+            importe_estimado_acum_actual: importeEstimadoAcumAnterior + importeEstimadoActual,
+            saldo_por_estimar: frente.importe_contrato - (importeEstimadoAcumAnterior + importeEstimadoActual)
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

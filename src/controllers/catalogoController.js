@@ -49,6 +49,15 @@ class CatalogoController {
             res.status(500).json({ error: err.message });
         }
     }
+
+    async getByFrenteId(req, res) {
+        try {
+            const catalogos = await catalogoService.getByFrenteId(req.params.frenteId);
+            res.json(catalogos);
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    }
 }
 
 module.exports = new CatalogoController();
