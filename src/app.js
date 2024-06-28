@@ -10,7 +10,6 @@ const catalogoRoutes = require('./routes/catalogoRoutes');
 const estimacionRoutes = require('./routes/estimacionRoutes');
 
 const app = express();
-const port = process.env.PORT;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -24,10 +23,6 @@ db.sequelize.sync().then(() => {
   console.log('Database connected.');
 }).catch(err => {
   console.error('Unable to connect to the database:', err);
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
 });
 
 app.get('/', (req, res) => {
