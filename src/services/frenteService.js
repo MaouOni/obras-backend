@@ -1,4 +1,4 @@
-const { Frente } = require('../models/db');
+const { Frente } = require('../models');
 
 exports.getAllFrentes = async () => {
     return await Frente.findAll();

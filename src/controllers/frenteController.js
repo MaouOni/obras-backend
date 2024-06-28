@@ -1,7 +1,4 @@
-const Frente = require('../models/frente.model');
-const Catalogo = require('../models/catalogo.model');
-const Proyecto = require('../models/proyecto.model');
-const Empresa = require('../models/empresa.model');
+const { Frente, Catalogo, Proyecto, Empresa } = require('../models');
 
 exports.getAllFrentes = async (req, res) => {
     try {
